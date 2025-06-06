@@ -9,7 +9,7 @@ const obtenerHistorial = async (req, res) => {
   res.json(mensajes);
 };
 
-// Generar respuesta del experto 1 (comunista, por ejemplo)
+// Generar respuesta del experto 1 
 const responderReligioso = async (req, res) => {
   const historial = await Mensaje.find().sort({ fecha: 1 });
   const prompt = crearPromptReligioso(historial);
@@ -26,7 +26,7 @@ const responderReligioso = async (req, res) => {
   res.json(nuevoMensaje);
 };
 
-// Generar respuesta del experto 2 (conservador, por ejemplo)
+// Generar respuesta del experto 2
 const responderFilosofa = async (req, res) => {
   const historial = await Mensaje.find().sort({ fecha: 1 });
   const prompt = crearPromptFilosofa(historial);
@@ -54,13 +54,11 @@ const limpiarHistorial = async (req, res) => {
 // ------- Prompts personalizados -------
 
 const crearPromptReligioso = (mensajes) => {
-  const ultimosMensajes = mensajes.slice(-6); // Limita a los últimos 6
+  const ultimosMensajes = mensajes.slice(-3); 
   const historial = ultimosMensajes.map(m => `${m.autor}: ${m.contenido}`).join('\n');
 
   return `
-Estás participando en un discusion con una filósofa atea que defiende el poliamor ético.quiero que adoptes el rol de un sacerdote católico tradicional que rechaza el poliamor conforme a la doctrina moral de la Iglesia y la Biblia. Responde con firmeza al último argumento de la filósofa, sin mencionarla por nombre. Usa un lenguaje claro, pastoral y contundente. Cita la Escritura solo cuando refuerce de manera inspiradora tu punto. Máximo 50 palabras por intervención. No desvíes el enfoque: refuta con convicción y profundidad doctrinal.
-
-
+Inicia la conversación con un saludo. Adopta el rol de un sacerdote católico tradicional que rechaza el poliamor conforme a la doctrina moral de la Iglesia y la Sagrada Escritura. Responde con firmeza y claridad al último argumento que ella ha planteado. Usa un lenguaje pastoral, claro y contundente. Limita tu intervención a un máximo de 50 palabras. No la menciones por nombre. Cita la Escritura solo si refuerza de manera inspiradora y directa tu refutación. Mantén el enfoque centrado en refutar su argumento con profundidad doctrinal.
 
 Conversación reciente:
 ${historial}
@@ -68,7 +66,7 @@ ${historial}
 };
 
 const crearPromptFilosofa = (mensajes) => {
-  const ultimosMensajes = mensajes.slice(-6);// Limita a los últimos 6
+  const ultimosMensajes = mensajes.slice(-3);
   const historial = ultimosMensajes.map(m => `${m.autor}: ${m.contenido}`).join('\n');
 
   return `
