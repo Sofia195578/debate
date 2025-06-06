@@ -1,0 +1,184 @@
+/* Reset y tipografía base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Estilo del cuerpo */
+body {
+  background: linear-gradient(to bottom right, #fcefee, #e3f2fd);
+  background-image:
+    radial-gradient(circle at top left, rgba(255,182,193,0.15) 20%, transparent 20%),
+    radial-gradient(circle at bottom right, rgba(173,216,230,0.15) 20%, transparent 20%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+/* Contenedor principal */
+.container {
+  width: 100%;
+  max-width: 800px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  backdrop-filter: blur(6px);
+}
+
+.expert-header{
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  justify-content: center;
+}
+
+.expert-religioso .icon{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: auto;
+  font-size: 30px;
+}
+.expert-filosofa .icon{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: auto;
+  font-size: 30px;
+}
+/* Título */
+.title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #d63384;
+  position: relative;
+}
+
+.title::after {
+  content: "💬";
+  display: block;
+  font-size: 60px;
+  margin-top: 8px;
+}
+
+/* Caja de chat */
+.chat-box {
+  max-height: 400px;
+  overflow-y: auto;
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  border: 2px solid #f0d9e7;
+  scroll-behavior: smooth;
+}
+
+
+/* Mensajes */
+.message {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.message.user {
+  flex-direction: row-reverse;
+}
+
+/* Iconos */
+.message .icon {
+  font-size: 1.8rem;
+  background-color: #f8d7da;
+  padding: 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+}
+
+.message.user .icon {
+  background-color: #d1ecf1;
+}
+
+/* Texto de mensajes */
+.message .text {
+  background-color: #fff0f6;
+  padding: 0.75rem 1rem;
+  border-radius: 14px;
+  max-width: 70%;
+  word-wrap: break-word;
+  border-left: 4px solid #d63384;
+  font-size: 1rem;
+}
+
+.message.user .text {
+  background-color: #e0f7fa;
+  border-left: 4px solid #0d6efd;
+}
+
+/* Botones */
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+button {
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  background: linear-gradient(to right, #ff6ec4, #7873f5);
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.3s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(to right, #f94d6a, #645cf5);
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsividad */
+@media (max-width: 600px) {
+  .message .text {
+    max-width: 85%;
+  }
+
+  .buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  button {
+    width: 100%;
+  }
+}

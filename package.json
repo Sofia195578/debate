@@ -1,0 +1,24 @@
+{
+  "name": "debate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google/genai": "^0.12.0",
+    "@google/generative-ai": "^0.3.0",
+    "axios": "^1.9.0",
+    "debate": "file:",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mongoose": "^8.14.1",
+    "pdfkit": "^0.17.1"
+  }
+}

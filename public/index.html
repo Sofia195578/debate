@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./index.css" />
+  <title>Diálogo entre Expertos</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="title">Diálogo entre Expertos</div>
+
+    <!-- NUEVA CABECERA VISUAL DE EXPERTOS -->
+    <div class="expert-header">
+      <div class="expert-religioso">
+        <div class="icon">🧑‍⚖️ Religioso</div>
+      </div>
+      <div class="expert-filosofa">
+        <div class="icon">👩‍🏫 Filosofa</div>
+      </div>
+    </div>
+
+    <div class="chat-box" id="chat-box">
+      <!-- Mensajes se inyectarán aquí -->
+    </div>
+
+    <div class="buttons">
+      <button id="btn-exp1">Respuesta Experto 1</button>
+      <button id="btn-exp2">Respuesta Experto 2</button>
+      <button id="btn-clear">Limpiar Historial</button>
+      <button id="btn-pdf">Exportar a PDF</button>
+    </div>
+  </div>
+
+  <script>
+    const chatBox = document.querySelector('.chat-box');
+    const btn1 = document.querySelector('#btn-exp1');
+    const btn2 = document.querySelector('#btn-exp2');
+    const btnClear = document.querySelector('#btn-clear');
+    const btnPDF = document.querySelector('#btn-pdf');
+
+    const renderMensajes = async () => {
+      const res = await fetch('/chat');
+      const mensajes = await res.json();
+
+      chatBox.innerHTML = '';
+      mensajes.forEach(msg => {
+        const div = document.createElement('div');
+        div.className = `message ${msg.autor === 'filosofa' ? 'user' : ''}`;
+        div.innerHTML = `
+        <div class="icon">${msg.autor === 'religioso' ? '🧑‍⚖️' : '👩‍🏫'}</div>
+        <div class="text">${msg.contenido}</div>
+      `;
+        chatBox.appendChild(div);
+      })
+      chatBox.scrollTop = chatBox.scrollHeight;
+    };
+
+
+
+
+    btn1.addEventListener('click', async () => {
+      btn1.disabled = true;
+      await fetch('/chat/religioso', { method: 'POST' });
+      await renderMensajes();
+      btn1.disabled = false;
+    });
+
+    btn2.addEventListener('click', async () => {
+      btn2.disabled = true;
+      await fetch('/chat/filosofa', { method: 'POST' });
+      await renderMensajes();
+      btn2.disabled = false;
+    });
+
+    btnClear.addEventListener('click', async () => {
+      await fetch('/chat', { method: 'DELETE' });
+      await renderMensajes();
+    });
+
+    btnPDF.addEventListener('click', () => {
+      window.open('/chat/exportar', '_blank');
+    });
+
+    renderMensajes();
+  </script>
+
+</body>
+
+</html>
